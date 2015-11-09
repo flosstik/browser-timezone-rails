@@ -14,4 +14,4 @@
 //= require jquery_ujs
 //= require jquery.cookie
 //= require jstz
-//= require set_time_zone
+//= require set_time_zone.js
