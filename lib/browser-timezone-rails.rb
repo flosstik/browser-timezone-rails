@@ -11,9 +11,16 @@ module BrowserTimezoneRails
 
     private
 
-    def set_time_zone(&action)
-      # Use existing methods to simplify filter
-      Time.use_zone(browser_timezone.presence || Time.zone, &action)
+    def set_time_zone
+      old_time_zone = Time.zone
+      if current_user.timezone.present?
+        Time.zone = current_user.timezone
+      else
+        Time.zone = browser_timezone if browser_timezone.present?
+      end
+      yield
+    ensure
+      Time.zone = old_time_zone
     end
 
     def browser_timezone
